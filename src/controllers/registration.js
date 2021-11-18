@@ -13,6 +13,7 @@ async function postSignUp(req, res) {
   const encriptedPassword = bcrypt.hashSync(`${password}`, 10);
 
   const validation = signUpValidation.validate(req.body);
+
   if (validation.error) {
     res.status(400).send({
       message: validation.error.details[0].message,
