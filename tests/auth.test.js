@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import app from '../src/app.js';
 import connection from '../src/database.js';
 import faker from 'faker';
-import createUser from './factories/userFactory.js';
+import { createUser, deleteUser } from './factories/userFactory.js';
 
 
 describe('POST /sign-up', () => {
@@ -10,15 +10,16 @@ describe('POST /sign-up', () => {
     const fakeEmail = faker.internet.email();
     const password = '123456';
     let token;
+    let userId;
 
     beforeAll(async () => {
         const user = await createUser(fakeName, fakeEmail, password);
         token = user.token;
+        userId = user.id;
     });
 
     afterAll(async () => {
-        await connection.query('DELETE FROM sessions WHERE token = $1', [token]);
-        await connection.query('DELETE FROM users WHERE name = $1', [fakeName]);
+        await deleteUser(userId, token);
     });
 
     it('POST /sign-up should return 400 if invalid fields', async () => {
@@ -66,7 +67,7 @@ describe('POST /sign-in', () => {
     const fakeName = faker.name.firstName();
     const fakeEmail = faker.internet.email();
     const password = '123456';
-    let token
+    let token;
 
     beforeAll(async () => {
        const user = await createUser(fakeName, fakeEmail, password);

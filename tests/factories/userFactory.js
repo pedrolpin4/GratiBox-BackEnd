@@ -22,4 +22,12 @@ const createUser = async (name, email, password) => {
   };
 };
 
-export default createUser;
+const deleteUser = async (userId, token) => {
+  await connection.query('DELETE FROM sessions WHERE token = $1', [token]);
+  await connection.query('DELETE FROM users WHERE id = $1', [userId]);
+};
+
+export {
+  createUser,
+  deleteUser,
+};

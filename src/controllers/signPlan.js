@@ -5,10 +5,11 @@ const getPlanOptions = async (req, res) => {
   try {
     const dayPlans = await connection.query('SELECT * FROM delivery_days');
     const products = await connection.query('SELECT * FROM products');
-
+    const districts = await connection.query('SELECT * FROM districts');
     const planOptions = {
       days: dayPlans.rows,
       products: products.rows,
+      districts: districts.rows,
     };
 
     res.send(planOptions);
