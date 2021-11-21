@@ -57,7 +57,8 @@ describe('/plans-options', () => {
             city: 'Nova Iguaçu',
             district: 1,
             zipCode: '26011680',
-            fullName: 'Pedrin da Silva'
+            fullName: 'Pedrin da Silva',
+            userId,
         }
 
         const result = await supertest(app)
@@ -92,7 +93,8 @@ describe('/plans-options', () => {
             city: 'Nova Iguaçu',
             district: 1,
             zipCode: '26011680',
-            fullName: 'Pedro da Silva'
+            fullName: 'Pedro da Silva',
+            userId,
         }
 
         const result = await supertest(app)

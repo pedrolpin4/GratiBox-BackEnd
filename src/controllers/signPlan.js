@@ -26,6 +26,7 @@ const registerPlan = async (req, res) => {
     district,
     zipCode,
     fullName,
+    userId,
   } = req.body;
 
   if (signatureValidation.validate(req.body).error) {
@@ -58,6 +59,7 @@ const registerPlan = async (req, res) => {
     });
 
     await connection.query(requisitionQuery);
+    await connection.query('UPDATE users SET signature_id = $1 WHERE id = $2', [signatureId, userId]);
 
     res.sendStatus(201);
   } catch (error) {
