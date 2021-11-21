@@ -12,7 +12,7 @@ describe('/plans-options', () => {
 
     beforeAll( async () => {
         const user = await createUser(faker.name, faker.internet.email(), '123456');
-        userId = user.userId;
+        userId = user.id;
         token = user.token;
         const signature = await createSignature('bolo', '10');
         productId = signature.product;
@@ -20,8 +20,8 @@ describe('/plans-options', () => {
     })
 
     afterAll( async () => {
-        await deleteSignature(productId, dayId);
         await deleteUser(userId, token);
+        await deleteSignature(productId, dayId);
     })
 
     it('GET /plans-options should return 401 if invalid token', async () => {
@@ -96,5 +96,24 @@ describe('/plans-options', () => {
             .send(body)
             .set('Authorization', token)
         expect(result.status).toEqual(201);
+    })
+
+    it('POST /plans-options should return 409 if valid token and body, but registered zipCode', async () => {
+        const body = {
+            day: dayId,
+            products: [productId],
+            streetNumber: 'Rua José, 87',
+            city: 'Nova Iguaçu',
+            district: 1,
+            zipCode: '26011680',
+            fullName: 'Pedro da Silva',
+            userId,
+        }
+
+        const result = await supertest(app)
+            .post('/plans-options')
+            .send(body)
+            .set('Authorization', token)
+        expect(result.status).toEqual(409);
     })
 });

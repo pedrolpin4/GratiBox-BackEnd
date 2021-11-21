@@ -19,6 +19,7 @@ const deleteSignature = async (productId, dayId) => {
   await connection.query('DELETE FROM products WHERE id = $1', [productId]);
   await connection.query('DELETE FROM signature WHERE delivery_day_id = $1', [dayId]);
   await connection.query('DELETE FROM delivery_days WHERE id = $1', [dayId]);
+  await connection.query('DELETE FROM adressees;');
 };
 
 export {

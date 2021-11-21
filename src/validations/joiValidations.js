@@ -19,6 +19,7 @@ const signatureValidation = Joi.object({
   district: Joi.number().required(),
   zipCode: Joi.string().required().min(8).max(8),
   fullName: Joi.string().required(),
+  userId: Joi.number().required(),
 });
 
 export {

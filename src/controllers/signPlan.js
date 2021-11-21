@@ -31,11 +31,19 @@ const registerPlan = async (req, res) => {
   } = req.body;
 
   if (signatureValidation.validate(req.body).error) {
-    res.sendStatus(400);
+    res.status(400).send({
+      message: signatureValidation.validate(req.body).error.details[0].message,
+    });
     return;
   }
 
   try {
+    const verifyAddressee = await connection.query('SELECT * FROM adressees WHERE zip_code = $1', [zipCode]);
+    if (verifyAddressee.rowCount) {
+      res.sendStatus(409);
+      return;
+    }
+
     await connection.query(`INSERT INTO adressees (city, district_id, zip_code, street_number, adresse_name)
       VALUES ($1, $2, $3, $4, $5)`, [city, district, zipCode, streetNumber, fullName]);
 
@@ -62,7 +70,9 @@ const registerPlan = async (req, res) => {
     await connection.query(requisitionQuery);
     await connection.query('UPDATE users SET signature_id = $1 WHERE id = $2', [signatureId, userId]);
 
-    res.sendStatus(201);
+    res.status(201).send({
+      signatureId,
+    });
   } catch (error) {
     res.sendStatus(500);
   }
