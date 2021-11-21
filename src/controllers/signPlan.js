@@ -1,0 +1,71 @@
+import connection from '../database.js';
+import { signatureValidation } from '../validations/joiValidations.js';
+
+const getPlanOptions = async (req, res) => {
+  try {
+    const dayPlans = await connection.query('SELECT * FROM delivery_days');
+    const products = await connection.query('SELECT * FROM products');
+
+    const planOptions = {
+      days: dayPlans.rows,
+      products: products.rows,
+    };
+
+    res.send(planOptions);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+};
+
+const registerPlan = async (req, res) => {
+  const {
+    day,
+    products,
+    streetNumber,
+    city,
+    district,
+    zipCode,
+    fullName,
+  } = req.body;
+
+  if (signatureValidation.validate(req.body).error) {
+    res.sendStatus(400);
+    return;
+  }
+
+  try {
+    await connection.query(`INSERT INTO adressees (city, district_id, zip_code, street_number, adresse_name)
+      VALUES ($1, $2, $3, $4, $5)`, [city, district, zipCode, streetNumber, fullName]);
+
+    const addressee = await connection.query('SELECT * FROM adressees WHERE zip_code = $1', [zipCode]);
+    const adresseeId = addressee.rows[0].id;
+
+    await connection.query(`INSERT INTO signature (delivery_day_id, adressee_id) 
+      VALUES ($1, $2)`, [day, adresseeId]);
+
+    const signature = await connection.query('SELECT * FROM signature WHERE adressee_id = $1', [adresseeId]);
+    const signatureId = signature.rows[0].id;
+
+    let requisitionQuery = 'INSERT INTO signature_products (product_id, signature_id) VALUES ';
+
+    products.forEach((prod, i) => {
+      if (i + 1 === products.length) {
+        requisitionQuery += `(${prod}, ${signatureId})`;
+        return;
+      }
+
+      requisitionQuery += `(${prod}, ${signatureId}), `;
+    });
+
+    await connection.query(requisitionQuery);
+
+    res.sendStatus(201);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+};
+
+export {
+  getPlanOptions,
+  registerPlan,
+};

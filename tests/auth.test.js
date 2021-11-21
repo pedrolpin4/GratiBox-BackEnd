@@ -1,22 +1,24 @@
 import supertest from 'supertest';
-import bcrypt from 'bcrypt';
 import app from '../src/app.js';
 import connection from '../src/database.js';
 import faker from 'faker';
+import createUser from './factories/userFactory.js';
 
 
 describe('POST /sign-up', () => {
     const fakeName = faker.name.firstName();
     const fakeEmail = faker.internet.email();
-    const password = bcrypt.hashSync('123456', 10)
+    const password = '123456';
+    let token;
 
     beforeAll(async () => {
-        await connection.query(`INSERT INTO users (name, email, password) VALUES
-            ($1, $2, $3)`, [fakeName, fakeEmail, password]);
+        const user = await createUser(fakeName, fakeEmail, password);
+        token = user.token;
     });
 
     afterAll(async () => {
-        await connection.query('DELETE FROM users WHERE name = $1', [fakeName])
+        await connection.query('DELETE FROM sessions WHERE token = $1', [token]);
+        await connection.query('DELETE FROM users WHERE name = $1', [fakeName]);
     });
 
     it('POST /sign-up should return 400 if invalid fields', async () => {
@@ -63,16 +65,16 @@ describe('POST /sign-up', () => {
 describe('POST /sign-in', () => {
     const fakeName = faker.name.firstName();
     const fakeEmail = faker.internet.email();
-    const password = bcrypt.hashSync('123456', 10);
+    const password = '123456';
+    let token
 
     beforeAll(async () => {
-        await connection.query(`INSERT INTO users (name, email, password) VALUES
-            ($1, $2, $3)`, [fakeName, fakeEmail, password]);
+       const user = await createUser(fakeName, fakeEmail, password);
+       token = user.token;
     });
 
     afterAll(async () => {
-        await connection.query('DELETE FROM sessions')
-        await connection.query('DELETE FROM users WHERE name = $1', [fakeName])
+        await connection.query('DELETE FROM sessions WHERE token = $1', [token])
     });
 
     it('POST /sign-in should return 400 if invalid fields', async () => {
