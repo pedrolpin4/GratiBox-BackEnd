@@ -43,7 +43,8 @@ Aiming to encourage a healthier lifestyle, this app is a startup that delivers a
     - clone this repository;
     - Go to this repository path on your device's terminal;
     - type "npm i" => the necessary packages will be installed on your device;
-    - create an .env.dev file following the .env.example template;
+    - open the file "database_backup.sql", then copy and paste the script on some database you'll create on your postgres terminal;
+    - create an .env.dev file following the .env.example template using the credentials of the database you've created above;
     - type "npm start:dev" => the project will run in your localhost:`${ThePort you have setted}`;
  
 ## What comes next?
