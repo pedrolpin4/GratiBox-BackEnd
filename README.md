@@ -61,6 +61,7 @@ Aiming to encourage a healthier lifestyle, this app is a startup that delivers a
 ![SASS Badge](https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=sass&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![husky](https://img.shields.io/badge/Cypress-182534?style=flat-square)
 
 #### **Back-end**
 
