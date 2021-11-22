@@ -6,7 +6,7 @@
 
 
 ## About
-Visando estimular um estilo de vida mais saudável você idealizou uma startup que entrega box com produtos saudáveis e de #gratidão. Os clientes poderão escolher entre dois planos de assinatura recorrente, semanal ou mensal. Cada box contém produtos sortidos como chás, produtos orgânicos, incensos. Os clientes não podem escolher os produtos e não sabem o que será enviado em cada box. 😇
+Aiming to encourage a healthier lifestyle, this app is a startup that delivers a box with healthy and #gratitude products. Customers will be able to choose between two recurring subscription plans, weekly or monthly. Each box contains assorted products such as teas, organic products and incenses. Customers cannot choose the products and do not know what will be shipped in each box. 😇
 
 ## FAQ
 
