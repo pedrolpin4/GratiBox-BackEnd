@@ -32,6 +32,10 @@ Visando estimular um estilo de vida mais saudável você idealizou uma startup q
     - City
     - State
 
+## What comes next?
+
+- On the next versions you'll experience a whole new web design you've never seen or heard
+- The rate Deliveries feature will blow your mind with the best feedback plataform on lifestyle signatures
 
 ## Tecnologies I Used
 
