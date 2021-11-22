@@ -44,7 +44,7 @@ Aiming to encourage a healthier lifestyle, this app is a startup that delivers a
     - Go to this repository path on your device's terminal;
     - type "npm i" => the necessary packages will be installed on your device;
     - create an .env.dev file following the .env.example template;
-    - type "npm start:dev" => the project will run in your localhost:`${ThePort you have setted};
+    - type "npm start:dev" => the project will run in your localhost:`${ThePort you have setted}`;
  
 ## What comes next?
 
