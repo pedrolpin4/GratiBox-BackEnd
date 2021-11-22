@@ -31,7 +31,20 @@ Aiming to encourage a healthier lifestyle, this app is a startup that delivers a
     - Zip Code
     - City
     - State
-
+## How to run?
+- Frontend
+    - clone this repository;
+    - Go to this repository path on your device's terminal;
+    - type "npm i" => the necessary packages will be installed on your device;
+    - type "npm start" => the project will run in your localhost:3000;
+    
+- Backend
+    - clone my repository GratiBox_BackEnd;
+    - Go to this repository path on your device's terminal;
+    - type "npm i" => the necessary packages will be installed on your device;
+    - create an .env.dev file following the .env.example template;
+    - type "npm start:dev" => the project will run in your localhost:`${ThePort you have setted};
+ 
 ## What comes next?
 
 - On the next versions you'll experience a whole new web design you've never seen or heard
