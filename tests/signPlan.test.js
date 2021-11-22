@@ -21,7 +21,6 @@ describe('/plans-options', () => {
 
     afterAll( async () => {
         await deleteUser(userId, token);
-        await deleteSignature(productId, dayId);
     })
 
     it('GET /plans-options should return 401 if invalid token', async () => {

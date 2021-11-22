@@ -3,6 +3,8 @@ import cors from 'cors';
 import tokenVerifier from './middlewares/tokenVerifier.js';
 import { postSignIn, postSignUp } from './controllers/auth.js';
 import { getPlanOptions, registerPlan } from './controllers/signPlan.js';
+import getUserPlan from './controllers/getUserPlan.js';
+import planVerifier from './middlewares/planVerifier.js';
 
 const app = express();
 app.use(express.json());
@@ -13,6 +15,8 @@ app.post('/sign-in', (req, res) => postSignIn(req, res));
 
 app.get('/plans-options', tokenVerifier, (req, res) => getPlanOptions(req, res));
 app.post('/plans-options', tokenVerifier, (req, res) => registerPlan(req, res));
+
+app.get('/user-signature', planVerifier, (req, res) => getUserPlan(req, res));
 
 app.get('/health', (req, res) => {
   res.sendStatus(200);
