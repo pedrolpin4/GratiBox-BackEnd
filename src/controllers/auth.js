@@ -47,7 +47,9 @@ const postSignIn = async (req, res) => {
   } = req.body;
 
   if (signInValidation.validate(req.body).error) {
-    res.sendStatus(400);
+    res.status(400).send({
+      message: signInValidation.validate(req.body).error.details[0].message,
+    });
     return;
   }
 
