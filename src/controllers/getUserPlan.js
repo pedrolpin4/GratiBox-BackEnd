@@ -12,12 +12,15 @@ const getUserPlan = async (req, res) => {
   const signatureId = user.rows[0].signature_id;
   const signature = await connection.query(`SELECT * FROM signature JOIN 
     delivery_days ON delivery_days.id = signature.delivery_day_id JOIN 
-    signature_products ON signature_products.signature_id = signature.id
-    WHERE signature.id = $1`, [signatureId]);
+    signature_products ON signature_products.signature_id = signature.id JOIN products
+    ON signature_products.product_id = products.id WHERE signature.id = $1`, [signatureId]);
 
   res.status(200).send({
     day: signature.rows[0].day,
-    products: signature.rows.map((sig) => sig.product_id),
+    products: signature.rows.map((sig) => ({
+      id: sig.product_id,
+      name: sig.name,
+    })),
     signDate: signature.rows[0].sign_day,
   });
 };

@@ -34,10 +34,12 @@ const userSignature = async (userId, day, product, address) => {
   };
 };
 
-const deleteUserSignature = async (zipCode, signatureId) => {
-  await connection.query('DELETE FROM signature_products WHERE signature_id = $1', [signatureId]);
-  await connection.query('DELETE FROM adressees WHERE zip_code = $1', [zipCode]);
-  await connection.query('DELETE FROM signature WHERE id = $1', [signatureId]);
+const deleteUserSignature = async () => {
+  await connection.query('DELETE FROM signature_products');
+  await connection.query('DELETE FROM products');
+  await connection.query('DELETE FROM signature');
+  await connection.query('DELETE FROM adressees');
+  await connection.query('DELETE FROM delivery_days');
   await connection.query("DELETE FROM districts WHERE name = 'RJ'");
 };
 

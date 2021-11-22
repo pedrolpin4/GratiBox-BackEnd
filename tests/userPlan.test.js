@@ -43,30 +43,30 @@ describe("GET /user-signature", () => {
     });
 
     afterAll( async () => {
-        await deleteUserSignature(zipCode, signatureId)
         await deleteUser(userId, tokenValid);
         await deleteUser(userInvalidId, tokenInvalid);
+        await deleteUserSignature(zipCode, signatureId)
         await deleteSignature(productId, dayId);
     })
 
     it('GET /user-signature should return 401 if invalid token', async () => {
         const result = await supertest(app)
-            .get('/plans-options')
+            .get('/user-signature')
             .set('Authorization', 'token')
         expect(result.status).toEqual(401);
     })
 
     it('GET /user-signature should return 403 if valid token and does not have signature', async () => {
         const result = await supertest(app)
-            .get('/plans-options')
+            .get('/user-signature')
             .set('Authorization', tokenInvalid)
         expect(result.status).toEqual(403);
     })
 
     it('GET /user-signature should return 200 if valid token and has signature', async () => {
         const result = await supertest(app)
-            .get('/plans-options')
+            .get('/user-signature')
             .set('Authorization', tokenValid)
-        expect(result.status).toEqual(403);
+        expect(result.status).toEqual(200);
     })
 })

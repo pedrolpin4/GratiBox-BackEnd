@@ -21,6 +21,7 @@ describe('/plans-options', () => {
 
     afterAll( async () => {
         await deleteUser(userId, token);
+        await deleteSignature(productId, dayId)
     })
 
     it('GET /plans-options should return 401 if invalid token', async () => {
@@ -48,7 +49,7 @@ describe('/plans-options', () => {
             products: [productId],
             streetNumber: 'Rua José, 87',
             city: 'Nova Iguaçu',
-            district: 1,
+            district: 8,
             zipCode: '26011680',
             fullName: 'Pedrin da Silva',
             userId,
@@ -67,7 +68,7 @@ describe('/plans-options', () => {
             products: [],
             streetNumber: 'Rua José',
             city: '',
-            district: 1,
+            district: 8,
         }
 
         const result = await supertest(app)
@@ -84,7 +85,7 @@ describe('/plans-options', () => {
             products: [productId],
             streetNumber: 'Rua José, 87',
             city: 'Nova Iguaçu',
-            district: 1,
+            district: 8,
             zipCode: '26011680',
             fullName: 'Pedro da Silva',
             userId,
