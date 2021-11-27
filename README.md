@@ -1,7 +1,7 @@
 # GratiBox
 
 <p align="center" >
-<img src="https://github.com/driven-exercises/Projeto-GratiBox/blob/a09f21f55810dd55c09230dd88ed027151e81043/image05.webp" width="300" height="300"/>
+<img src="https://user-images.githubusercontent.com/87671165/143669068-7619f62f-b86a-4cbb-812b-fa978043cca4.gif" height="500"/>
 </p>
 
 
